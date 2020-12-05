@@ -24,16 +24,29 @@ export default props => {
     const getRightContent = () => {
 
         return (
-            <TouchableOpacity style={styles.right}>
+            <TouchableOpacity style={styles.right}
+                onPress={() => props.onDelete && props.onDelete(props.id)}
+            >
                 <Icon name="trash" size={30} color="#fff"/>
             </TouchableOpacity>
         )
     }
 
+    const getLeftContent = () => {
+
+        return (
+            <View style={styles.left}>
+                <Icon name="trash" size={20} color="#fff" style={styles.excludeIcon}/>
+                <Text style={styles.excludeText}>Excluir</Text>
+            </View>
+        )
+    }
 
     return (
        <Swipeable
         renderRightActions={getRightContent}
+        renderLeftActions={getLeftContent}
+        onSwipeableLeftOpen={() => props.onDelete && props.onDelete(props.id)}
        >
             <View style={styles.container}>
             <TouchableWithoutFeedback
@@ -78,7 +91,8 @@ const styles = StyleSheet.create({
         borderColor: '#aaa',
         borderBottomWidth: 1,
         alignItems: 'center',
-        paddingVertical: 10
+        paddingVertical: 10,
+        backgroundColor: '#fff'
     },
     checkContainer: {
         width: '20%',
@@ -118,5 +132,20 @@ const styles = StyleSheet.create({
         alignItems: "center",
         justifyContent: 'flex-end',
         paddingHorizontal: 20
+    },
+    left: {
+        backgroundColor: 'red',
+        flexDirection: 'row',
+        alignItems: 'center',
+        flex: 1
+    },
+    excludeText: {
+        fontFamily: commonStyles.fontFamily,
+        color: '#fff',
+        fontSize: 20,
+        margin: 10,
+    },
+    excludeIcon: {
+        marginLeft: 10
     }
 })
